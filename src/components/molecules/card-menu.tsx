@@ -6,6 +6,19 @@ import Text from "../atomic/text"
 
 const CardMenu = ({ data }: { data: any }) => {
   const { dataCart, setDataCart } = useContext<any>(CartContext)
+  
+  const handleAddToCart = () => {
+    // const handleAddToCart = dataCart.map((item: any) => {
+    //   if (data.id === item.data.id) {
+    //     return  {...item, total: item.total + 1};
+    //   } else {
+    //     setDataCart([...dataCart, { data, total: 1, catatan: '' }])
+    //   }
+    // })
+    // setDataCart(handleAddToCart)
+    setDataCart([...dataCart, { data, total: 1, catatan: '' }])
+  }
+
   return (
     <article className='bg-white px-4 py-2 rounded-md shadow-md'>
       <div>
@@ -35,7 +48,7 @@ const CardMenu = ({ data }: { data: any }) => {
         <Button
           variant='primary'
           className='mt-2'
-          onClick={() => setDataCart([...dataCart, data])}
+          onClick={() => handleAddToCart()}
         >
           <Text
             variant='white'

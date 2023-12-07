@@ -19,7 +19,7 @@ const Header = ({ valueVoucher, setValueVoucher, handleCheckout, useVoucher, nom
 }) => {
   const [cartMenu, setCartMenu] = useState(false)
   const { dataCart } = useContext<any>(CartContext)
-  const finalPrice = dataCart.reduce((a: number, v: any) => a = a + v.harga, 0) < nominalVoucher ? 0 : dataCart.reduce((a: number, v: any) => a = a + v.harga, 0) - nominalVoucher
+  const finalPrice = dataCart.reduce((a: number, v: any) => a = (a + v.data.harga) * v.total, 0) < nominalVoucher ? 0 : dataCart.reduce((a: number, v: any) => a = (a + v.data.harga) * v.total, 0) - nominalVoucher
 
   return (
     <div className='container mx-auto flex items-center justify-between p-4'>
@@ -53,8 +53,8 @@ const Header = ({ valueVoucher, setValueVoucher, handleCheckout, useVoucher, nom
       </div>
 
       {/* Side Cart Menu */}
-      <div data-menu={cartMenu} onClick={() => setCartMenu(false)} className='data-[menu=false]:hidden fixed inset-0 bg-gray-400/50' />
-      <div data-menu={cartMenu} className='absolute z-20 right-0 inset-y-0 w-1/4 data-[menu=false]:hidden'>
+      <div data-menu={cartMenu} onClick={() => setCartMenu(false)} className='data-[menu=false]:hidden z-20 fixed inset-0 bg-gray-400/50' />
+      <div data-menu={cartMenu} className='absolute z-30 right-0 inset-y-0 w-1/4 data-[menu=false]:hidden'>
         <div className='bg-white h-screen px-4 py-2 flex flex-col'>
           {/* Header cart */}
           <div className='flex items-center justify-between'>

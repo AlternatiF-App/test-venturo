@@ -30,12 +30,12 @@ const App = () => {
   const handleCheckout = async () => {
     const payload = {
       nominal_diskon: nominalVoucher === 0 ? '0' : nominalVoucher.toString(),
-      nominal_pesanan: dataCart.reduce((a: number, v: any) => a = a + v.harga, 0).toString(),
+      nominal_pesanan: dataCart.reduce((a: number, v: any) => a = (a + v.data.harga) * v.total, 0).toString(),
       items: dataCart.map((item: any) => {
         return {
-          id: item.id,
-          harga: item.harga,
-          catatan: 'tes'
+          id: item.data.id,
+          harga: item.data.harga * item.total,
+          catatan: item.catatan
         }
       })
     }

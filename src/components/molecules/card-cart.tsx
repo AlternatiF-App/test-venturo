@@ -1,14 +1,34 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { basePrice } from "../../helpers/currency"
 import { Button } from "../atomic/button"
 import Text from "../atomic/text"
+import { CartContext } from "../../context/cart-context"
 
 const CardCart = ({ data }: {
   data: any
 }) => {
-  const { id, gambar, nama, harga } = data
+  const { dataCart, setDataCart } = useContext<any>(CartContext)
+  const { id, gambar, nama, harga } = data.data
   const [total, setTotal] = useState(1)
   const [note, setNote] = useState('')
+
+  const addNote = (value: string) => {
+    const pushNote = dataCart.map((item: any) => {
+      if (id === item.data.id) {
+        return  {...item, catatan: value};
+      }
+    })
+    setDataCart(pushNote)
+  }
+
+  const changeTotalMenu = (value: number) => {
+    const pushTotal = dataCart.map((item: any) => {
+      if (id === item.data.id) {
+        return  {...item, total: value};
+      }
+    })
+    setDataCart(pushTotal)
+  }
 
   return (
     <article>
@@ -54,6 +74,7 @@ const CardCart = ({ data }: {
               disabled={total === 1}
               onClick={() => {
                 setTotal(total - 1)
+                changeTotalMenu(total - 1)
               }}
             >
               <>-</>
@@ -72,6 +93,7 @@ const CardCart = ({ data }: {
               size='icon'
               onClick={() => {
                 setTotal(total + 1)
+                changeTotalMenu(total + 1)
               }}
             >
               <>+</>
@@ -84,7 +106,10 @@ const CardCart = ({ data }: {
         className='outline-none px-4 py-2 mt-4 border border-gray-400 rounded-md w-full'
         placeholder='Masukkan catatan disini...'
         value={note}
-        onChange={(e) => setNote(e.target.value)}
+        onChange={(e) => {
+          setNote(e.target.value)
+          addNote(e.target.value)
+        }}
       />
     </article>
   )
