@@ -5,6 +5,7 @@ import { CartContext } from './context/cart-context';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Button } from './components/atomic/button';
+import Text from './components/atomic/text';
 
 const App = () => {
   const [dataCart, setDataCart] = useState([])
@@ -49,13 +50,22 @@ const App = () => {
       .then(async (res) => {
         const response = await res.json()
           toast.success(
-            <Button
-              variant='primary'
-              size='primary'
-              onClick={() => handleCancelOrder(response.id)}
-            >
-              <>Batal</>
-            </Button>,
+            <div>
+              <Text
+                variant='black'
+                size='h4'
+              >
+                Order berhasil dibuat, jika ingin membatalkan pesanan klik tombol dibawah
+              </Text>
+              <Button
+                variant='primary'
+                size='primary'
+                className='mt-2'
+                onClick={() => handleCancelOrder(response.id)}
+              >
+                <>Batal</>
+              </Button>
+            </div>,
             {
               autoClose: 5000
             }
