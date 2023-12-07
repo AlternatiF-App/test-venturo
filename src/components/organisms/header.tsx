@@ -33,7 +33,7 @@ const Header = ({ valueVoucher, setValueVoucher, handleCheckout, useVoucher, nom
           Main Course
         </Text>
       </div>
-      <div>
+      <div className='relative'>
         <Button
           variant='secondary'
           rounded='md'
@@ -50,6 +50,11 @@ const Header = ({ valueVoucher, setValueVoucher, handleCheckout, useVoucher, nom
             </Text>
           </div>
         </Button>
+        {
+          dataCart.length > 0 && <div className='absolute -top-2 -right-2 text-xs px-2 py-1 bg-red-600 text-white rounded-full'>
+            { dataCart.length }
+          </div>
+        }
       </div>
 
       {/* Side Cart Menu */}
@@ -125,10 +130,11 @@ const Header = ({ valueVoucher, setValueVoucher, handleCheckout, useVoucher, nom
               </Text>
             </div>
             <Button
-              variant='primary'
+              variant={dataCart.length > 0 ? 'primary' : 'disabled'}
               rounded='md'
               size='primary'
               className='mt-4'
+              disabled={dataCart.length < 0}
               onClick={() => handleCheckout()}
             >
               <>

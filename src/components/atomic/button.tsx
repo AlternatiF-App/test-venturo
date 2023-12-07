@@ -12,7 +12,7 @@ const getVariants = (variant: typeVariant) => {
     case 'secondary':
       return 'bg-transparant text-black'
     case 'disabled':
-      return 'bg-gray-200 text-white'
+      return 'bg-gray-200 text-gray-400'
   }
 }
 
