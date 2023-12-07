@@ -17,6 +17,7 @@ const CardCart = ({ data }: {
       if (id === item.data.id) {
         return  {...item, catatan: value};
       }
+      return item
     })
     setDataCart(pushNote)
   }
@@ -26,6 +27,7 @@ const CardCart = ({ data }: {
       if (id === item.data.id) {
         return  {...item, total: value};
       }
+      return item
     })
     setDataCart(pushTotal)
   }

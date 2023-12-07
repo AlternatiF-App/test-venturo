@@ -29,13 +29,13 @@ const App = () => {
 
   const handleCheckout = async () => {
     const payload = {
-      nominal_diskon: nominalVoucher === 0 ? '0' : nominalVoucher.toString(),
+      nominal_diskon: (nominalVoucher === 0 || nominalVoucher === undefined) ? '0' : nominalVoucher.toString(),
       nominal_pesanan: dataCart.reduce((a: number, v: any) => a = (a + v.data.harga) * v.total, 0).toString(),
       items: dataCart.map((item: any) => {
         return {
           id: item.data.id,
           harga: item.data.harga * item.total,
-          catatan: item.catatan
+          catatan: item.catatan === '' ? 'tidak ada catatan' : item.catatan
         }
       })
     }
@@ -49,6 +49,7 @@ const App = () => {
     })
       .then(async (res) => {
         const response = await res.json()
+        if (response.status_code === 200) {
           toast.success(
             <div>
               <Text
@@ -70,6 +71,9 @@ const App = () => {
               autoClose: 5000
             }
           )
+        } else if (response.status_code === 400) {
+          toast.error('Order gagal dibuat', { autoClose: 5000 })
+        }
       })
   }
   

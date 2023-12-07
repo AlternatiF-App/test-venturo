@@ -3,19 +3,13 @@ import { CartContext } from "../../context/cart-context"
 import { basePrice } from "../../helpers/currency"
 import { Button } from "../atomic/button"
 import Text from "../atomic/text"
+import { toast } from "react-toastify"
 
 const CardMenu = ({ data }: { data: any }) => {
   const { dataCart, setDataCart } = useContext<any>(CartContext)
   
   const handleAddToCart = () => {
-    // const handleAddToCart = dataCart.map((item: any) => {
-    //   if (data.id === item.data.id) {
-    //     return  {...item, total: item.total + 1};
-    //   } else {
-    //     setDataCart([...dataCart, { data, total: 1, catatan: '' }])
-    //   }
-    // })
-    // setDataCart(handleAddToCart)
+    toast.success('Berhasil menambahkan ke keranjang', { autoClose: 1000 })
     setDataCart([...dataCart, { data, total: 1, catatan: '' }])
   }
 

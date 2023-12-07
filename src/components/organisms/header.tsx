@@ -19,7 +19,7 @@ const Header = ({ valueVoucher, setValueVoucher, handleCheckout, useVoucher, nom
 }) => {
   const [cartMenu, setCartMenu] = useState(false)
   const { dataCart } = useContext<any>(CartContext)
-  const finalPrice = dataCart.reduce((a: number, v: any) => a = (a + v.data.harga) * v.total, 0) < nominalVoucher ? 0 : dataCart.reduce((a: number, v: any) => a = (a + v.data.harga) * v.total, 0) - nominalVoucher
+  const finalPrice = (nominalVoucher !== undefined && nominalVoucher !== 0 && dataCart.reduce((a: number, v: any) => a = (a + v.data.harga) * v.total, 0) < nominalVoucher) ? 0 : dataCart.reduce((a: number, v: any) => a = (a + v.data.harga) * v.total, 0) - nominalVoucher
 
   return (
     <div className='container mx-auto flex items-center justify-between p-4'>
